@@ -1,0 +1,10 @@
+{
+    "name": "DXApplication1",
+    "version": "1.0.0",
+    "private": true,
+    "dependencies": {
+        "devextreme-dist": "25.2-stable",
+        "@devexpress/analytics-core": "25.2-stable",
+        "devexpress-dashboard": "25.2-stable"
+    }
+}
