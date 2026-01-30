@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web" InitialTargets="EnsureNodeEnv">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web" InitialTargets="EnsureNodeEnv">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -20,6 +20,7 @@
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.8" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
 
   <ItemGroup>

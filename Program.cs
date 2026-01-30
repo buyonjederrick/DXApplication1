@@ -50,6 +50,10 @@ builder.Services.AddScoped((IServiceProvider serviceProvider) =>
     DashboardObjectDataSource objDataSource = new DashboardObjectDataSource("Object Data Source");
     dataSourceStorage.RegisterDataSource("objDataSource", objDataSource.SaveToXml());
 
+    // Registers a PPMIS Payroll SQL data source.
+    DashboardSqlDataSource payrollDataSource = new DashboardSqlDataSource("PPMIS Payroll", "PPMISPayrollConnectionString");
+    dataSourceStorage.RegisterDataSource("ppmIsPayrollDataSource", payrollDataSource.SaveToXml());
+
     // Registers an Excel data source.
     DashboardExcelDataSource excelDataSource = new DashboardExcelDataSource("Excel Data Source");
     excelDataSource.FileName = builder.Environment.ContentRootFileProvider.GetFileInfo("Data/Sales.xlsx").PhysicalPath;
