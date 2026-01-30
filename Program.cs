@@ -30,6 +30,7 @@ builder.Services.AddScoped((IServiceProvider serviceProvider) =>
 {
     DashboardConfigurator configurator = new DashboardConfigurator();
     configurator.SetConnectionStringsProvider(new DashboardConnectionStringsProvider(builder.Configuration));
+    configurator.SetDBSchemaProvider(new DXApplication1.Data.CustomDBSchemaProvider());
 
     DashboardFileStorage dashboardFileStorage = new DashboardFileStorage(builder.Environment.ContentRootFileProvider.GetFileInfo("Data/Dashboards").PhysicalPath);
     configurator.SetDashboardStorage(dashboardFileStorage);

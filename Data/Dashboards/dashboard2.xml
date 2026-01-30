@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard RequestParameters="false">
+  <Title Text="New Dashboard" />
+  <DataSources>
+    <SqlDataSource Name="PayrollAllowances" ComponentName="sqlDataSource1">
+      <Connection Name="PPMISPayrollConnectionString" FromAppConfig="true" />
+      <Query Type="SelectQuery" Name="PayrollAllowances">
+        <Tables>
+          <Table Name="PayrollAllowances" />
+        </Tables>
+        <Columns>
+          <AllColumns Table="PayrollAllowances" />
+          <Column Table="PayrollAllowances" Name="EcNumber" />
+        </Columns>
+      </Query>
+      <ConnectionOptions CloseConnection="true" />
+    </SqlDataSource>
+  </DataSources>
+</Dashboard>
