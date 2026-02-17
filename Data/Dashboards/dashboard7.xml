@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard RequestParameters="false">
+  <Title Text="New Dashboard" />
+  <DataSources>
+    <SqlDataSource Name="PPMIS Employee" ComponentName="sqlDataSource1">
+      <Connection Name="PPMISEmployeeConnectionString" FromAppConfig="true" />
+      <ConnectionOptions CloseConnection="true" />
+    </SqlDataSource>
+  </DataSources>
+</Dashboard>

@@ -12,5 +12,21 @@
     .Width("100%")
     .Height("100%")
     .OnBeforeRender("onBeforeRender")
+    .Extensions(e => {
+        e.DataSourceWizard(w => {
+            w.EnableCustomSql(true);
+        });
+        e.ViewerApi(v => {
+            v.OnItemClick("function(args) { console.log('Item Clicked: ' + args.ItemName); }");
+        });
+        e.UrlState(u => {
+            u.IncludeDashboardIdToUrl(true);
+            u.IncludeDashboardStateToUrl(true);
+        });
+        // MobileLayout API version mismatch - temporarily disabled
+        // e.MobileLayout(m => {
+        //    m.ExtensionMode(MobileLayoutExtensionMode.Auto);
+        // });
+    })
 )
 </div>

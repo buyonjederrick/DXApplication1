@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using DevExpress.AspNetCore;
 using DevExpress.DashboardAspNetCore;
 using DevExpress.DashboardCommon;
@@ -10,14 +6,10 @@ using DevExpress.DashboardWeb;
 using DevExpress.DataAccess.Excel;
 using DevExpress.DataAccess.Sql;
 using DXApplication1;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 AppDomain.CurrentDomain.SetData("DataDirectory", builder.Environment.ContentRootPath);
@@ -26,9 +18,10 @@ builder.Services
                .AddDevExpressControls()
                .AddControllers();
 
-builder.Services.AddScoped((IServiceProvider serviceProvider) =>
+builder.Services.AddSingleton((IServiceProvider serviceProvider) =>
 {
     DashboardConfigurator configurator = new DashboardConfigurator();
+    configurator.AllowExecutingCustomSql = true;
     configurator.SetConnectionStringsProvider(new DashboardConnectionStringsProvider(builder.Configuration));
     configurator.SetDBSchemaProvider(new DXApplication1.Data.CustomDBSchemaProvider());
 
@@ -55,11 +48,27 @@ builder.Services.AddScoped((IServiceProvider serviceProvider) =>
     DashboardSqlDataSource payrollDataSource = new DashboardSqlDataSource("PPMIS Payroll", "PPMISPayrollConnectionString");
     dataSourceStorage.RegisterDataSource("ppmIsPayrollDataSource", payrollDataSource.SaveToXml());
 
+    // Registers a PPMIS Settings SQL data source.
+    DashboardSqlDataSource settingsDataSource = new DashboardSqlDataSource("PPMIS Settings", "PPMISSettingsConnectionString");
+    dataSourceStorage.RegisterDataSource("ppmIsSettingsDataSource", settingsDataSource.SaveToXml());
+
+    // Registers a PPMIS Employee SQL data source.
+    DashboardSqlDataSource employeeDataSource = new DashboardSqlDataSource("PPMIS Employee", "PPMISEmployeeConnectionString");
+    dataSourceStorage.RegisterDataSource("ppmIsEmployeeDataSource", employeeDataSource.SaveToXml());
+
     // Registers an Excel data source.
     DashboardExcelDataSource excelDataSource = new DashboardExcelDataSource("Excel Data Source");
     excelDataSource.FileName = builder.Environment.ContentRootFileProvider.GetFileInfo("Data/Sales.xlsx").PhysicalPath;
     excelDataSource.SourceOptions = new ExcelSourceOptions(new ExcelWorksheetSettings("Sheet1"));
     dataSourceStorage.RegisterDataSource("excelDataSource", excelDataSource.SaveToXml());
+
+    // Registers an Extract data source.
+    DashboardExtractDataSource extractDataSource = new DashboardExtractDataSource("Extract Data Source");
+    dataSourceStorage.RegisterDataSource("extractDataSource", extractDataSource.SaveToXml());
+
+    // Registers a Federation data source.
+    DashboardFederationDataSource federationDataSource = new DashboardFederationDataSource("Federation Data Source");
+    dataSourceStorage.RegisterDataSource("federationDataSource", federationDataSource.SaveToXml());
 
     configurator.SetDataSourceStorage(dataSourceStorage);
 

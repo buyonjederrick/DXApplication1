@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard RequestParameters="false">
+  <Title Text="New Dashboard" />
+  <DataSources>
+    <SqlDataSource Name="CustomSqlQuery" ComponentName="sqlDataSource1">
+      <Connection Name="PPMISPayrollConnectionString" FromAppConfig="true" />
+      <Query Type="CustomSqlQuery" Name="CustomSqlQuery">
+        <Sql>SELECT 
+    "PayrollAllowances"."AdCode",
+    SUM("PayrollAllowances"."Amount") AS "TotalAmount"
+FROM "dbo"."PayrollAllowances" "PayrollAllowances"
+GROUP BY "PayrollAllowances"."AdCode";
+</Sql>
+      </Query>
+      <ConnectionOptions CloseConnection="true" />
+    </SqlDataSource>
+  </DataSources>
+</Dashboard>
